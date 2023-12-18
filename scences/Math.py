@@ -1,6 +1,7 @@
 from manim import *
 
-img_dir = "..img/"
+img_dir = "../img/"
+
 
 class Math(MovingCameraScene):
     def rmv_all_objs(self):
@@ -99,6 +100,113 @@ class Math(MovingCameraScene):
 
         self.wait(1)
 
+    def create_numbers(self, quantity, circle):
+        numbers = []
+        for i in range(quantity):  # Change 12 to the number of numbers you want
+            angle = (
+                -i * TAU / quantity + TAU / 4
+            )  # Change 12 to the number of numbers you want
+            number = Text(str(i + 1)).scale(
+                0.5
+            )  # Change the scale if the numbers are too small/big
+            number.move_to(
+                circle.point_at_angle(angle) * 1.2
+            )  # Change 1.2 to move the numbers closer/farther from the circle
+            numbers.append(number)
+        return numbers
+
+    def rotation_pointer(self):
+        # Create a circle
+        circle = Circle(radius=3, color=BLUE)
+        # Create a line
+        line = Line(circle.get_center(), circle.get_top())
+        # Add the circle and line to the scene
+        self.add(circle, line)
+
+        # Group the circle and numbers
+        numbers = self.create_numbers(20, circle)
+
+        # Create the numbers
+        group = VGroup(circle, line, *numbers)
+
+        # self.add(group)
+        self.play(DrawBorderThenFill(group), run_time=4, rate_functions=linear)
+
+        self.wait(2)
+
+        # Rotate the line around the center of the circle
+        self.play(
+            Rotate(line, 1.2 * PI * 30, about_point=circle.get_center(), run_time=10),
+            rate_func=exponential_decay,
+            repeat=1,
+        )
+
+        self.wait(2)
+
+        # Move the circle to the right
+        self.play(group.animate.shift(LEFT * 3), run_time=2)
+
+        self.wait(2)
+
+        outcome = Text("1", font_size=40).to_edge(UP).shift(DOWN * 1, RIGHT * 4)
+
+        formular = MathTex(r"g^{a}\mod 20 = 1").to_edge(UP).shift(DOWN * 1, RIGHT * 4)
+
+        self.play(Write(formular))
+
+        self.wait(2)
+
+        # create a alice and bob
+        question_mark = (
+            SVGMobject(
+                img_dir + "question_mark.svg",
+                color="white",
+                fill_color="white",
+            )
+            .next_to(formular, DOWN * 6)
+            .scale(1.5)
+        )
+
+        self.play(Write(question_mark))
+
+        self.wait(2)
+
+    def lets_say(self):
+        a = MathTex("a=10", font_size=60).to_edge(UP)
+        g = MathTex("g=3", font_size=60).to_edge(UP).shift(DOWN * 1)
+        n = MathTex("n=17", font_size=60).to_edge(UP).shift(DOWN * 2)
+
+        self.play(Write(a), run_time=1.5)
+        self.wait(1)
+        self.play(Write(g), run_time=1.5)
+        self.wait(1)
+        self.play(Write(n), run_time=1.5)
+        self.wait(1)
+
+        formular = MathTex(r"g^{a}\mod n", font_size=60).to_edge(UP).shift(DOWN * 4)
+
+        self.play(Write(formular), run_time=1.5)
+
+        self.wait(2)
+
+        formular_with_numbers = MathTex(r"3^{10}\mod 17").move_to(formular)
+
+        self.play(Transform(formular, formular_with_numbers), run_time=1.5)
+
+        formular_with_result = MathTex(r"3^{10}\mod 17 = 5").move_to(formular)
+
+        self.wait(2)
+
+        self.play(Transform(formular, formular_with_result), run_time=1.5)
+
+        self.wait(1)
+
+        group = VGroup(a, g, n, formular)
+
+        self.play(group.animate.move_to(RIGHT * 2 + UP *2).scale(0.7), run_time=1.5)
 
     def construct(self):
-        self.math()
+        # self.math()
+        self.lets_say()
+        self.rotation_pointer()
+        pass
