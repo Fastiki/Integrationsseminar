@@ -189,25 +189,25 @@ class Intro(MovingCameraScene):
         mail.set_height(1) 
         mail.set_width(1)
 
+        arrow_alice_bob = DoubleArrow(
+                            alice.get_right(), 
+                            bob.get_left(), 
+                            buff=0, 
+                            tip_length=0.4, 
+                            color=WHITE
+                        )
+        
+        arrow_mid = Arrow(
+                            (alice.get_right() + bob.get_left()) / 2, 
+                            computer.get_bottom(), 
+                            buff=0, 
+                            tip_length=0.4, 
+                            color=WHITE
+                        )
+
         self.play(
-            GrowFromCenter(
-                DoubleArrow(
-                    alice.get_right(), 
-                    bob.get_left(), 
-                    buff=0, 
-                    tip_length=0.4, 
-                    color=WHITE
-                )
-            ),
-            GrowArrow(
-                Arrow(
-                    (alice.get_right() + bob.get_left()) / 2, 
-                    computer.get_bottom(), 
-                    buff=0, 
-                    tip_length=0.4, 
-                    color=WHITE
-                )
-            ),
+            GrowFromCenter(arrow_alice_bob),
+            GrowArrow(arrow_mid),
             FadeIn(mail),
             run_time=1.5
         )
@@ -226,6 +226,20 @@ class Intro(MovingCameraScene):
             FadeIn(key_bob),
             FadeIn(key_alice),
             run_time=1.5
+        )
+
+        self.wait(1)
+
+        self.play(
+            FadeOut(arrow_mid),
+            run_time=1
+        )
+
+        self.wait(1)
+        
+        self.play(
+            ApplyMethod(arrow_alice_bob.set_color, GREEN),
+            run_time=1
         )
 
         self.wait(3)
