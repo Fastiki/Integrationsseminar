@@ -1,5 +1,7 @@
 from manim import *
 
+from Intro import Intro
+
 img_dir = "img/"
 
 
@@ -9,15 +11,6 @@ class DH(MovingCameraScene):
             *[FadeOut(mob) for mob in self.mobjects]
             # All mobjects in the screen are saved in self.mobjects
         )
-
-    def intro(self):
-        # Intro
-        intro = Text("Diffie-Hellman Key Exchange", font_size=60)
-        self.play(Write(intro))
-        self.wait(2)
-        self.play(FadeOut(intro))
-
-        self.wait(2)
 
     def alice_bob(self):
         # create a alice and bob
@@ -148,20 +141,21 @@ class DH(MovingCameraScene):
 
         self.wait(1)
 
-        alice_short = MathTex(r"g^{ba}\mod n", font_size=40).next_to(alice_bob, DOWN * 2)
+        alice_short = MathTex(r"g^{ba}\mod n", font_size=40).next_to(
+            alice_bob, DOWN * 2
+        )
 
         self.play(Write(alice_short))
 
         self.wait(1)
 
-
     def construct(self):
         # Intro
-        # self.intro()
-        # self.rmv_all_objs()
+        Intro.intro(self)
+        self.rmv_all_objs()
 
         # create a alice and bob
         # self.alice_bob()
         # self.rmv_all_objs()
 
-        self.math()
+        # self.math()
