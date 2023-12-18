@@ -151,7 +151,7 @@ class DH(MovingCameraScene):
 
     def construct(self):
         # Intro
-        Intro.intro(self)
+        Intro.construct(self)
         self.rmv_all_objs()
 
         # create a alice and bob
