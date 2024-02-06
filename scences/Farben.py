@@ -187,7 +187,7 @@ class Farben(MovingCameraScene):
 
         ### Animation ###
         self.play(
-            red_a_copy.animate.move_to(abg_rectangel.get_center()),
+            blue_a_copy.animate.move_to(abg_rectangel.get_center()),
             orange_copy.animate.move_to(abg_rectangel.get_center()),
             run_time=1
         ) 
@@ -197,7 +197,7 @@ class Farben(MovingCameraScene):
         self.wait(2)
 
         self.play(
-            blue_a_copy.animate.move_to(abg_b_rectangel.get_center()),
+            red_a_copy.animate.move_to(abg_b_rectangel.get_center()),
             green_copy.animate.move_to(abg_b_rectangel.get_center()),
             run_time=1
         ) 
