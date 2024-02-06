@@ -1,6 +1,34 @@
-### Discrete Log Problem Skript
+# Diskretes Logarithmus-Problem: Ein Skript
 
-Wir suchen eine numerische Operation die in eine Richtung einfach zu lösen ist und zurück zu lösen schwer ist. Ein weg ist hier die Modulare Arithmetik.  (x mod p)
+In der Mathematik begegnen wir oft Operationen, die in einer Richtung leicht zu lösen sind, aber in der entgegengesetzten Richtung schwierig erscheinen. 
+Ein klassisches Beispiel hierfür ist die Modulo-Arithmetik (auch bekannt als Uhr-Arithmetik), bei der wir den Rest einer Division berechnen, z.B. \(x \mod p\), 
+wobei \(x\) die zu dividierende Zahl und \(p\) der Modulus ist.
 
-Die Modulo Arithmetik kann auch als Uhr Arithmetik bezeichnet werden.
-Um beispielsweise 46 mod 12 zu berechnen kann man sich ein Maßband mit 46 Einheiten vorstellen. Diese Band kann man dann um eine Uhr mit 12 Eihnheiten wickeln und da wo die Uhr endet befindet sich die Lösung
+Stellen wir uns vor, wir wollen \(46 \mod 12\) berechnen. Dies können wir uns als Wicklung eines Maßbands mit 46 Einheiten um eine Uhr mit 12 Einheiten vorstellen. 
+Der Rest, der sich ergibt, wenn das Band um die Uhr gewickelt ist, ist unsere Lösung. 
+
+**Animation:**
+
+Die Lösung für \(46 \mod 12\) ist also 10.
+Die Modulo-Operation in dieser Richtung ist also vergleichsweise einfach zu berechnen.
+
+Für Verschlüsselungszwecke nutzen wir die Eigenschaften des Modulos, insbesondere wenn wir Exponentiationen, Primzahlen und primitive Wurzeln einbeziehen. 
+Nehmen wir zum Beispiel die Primzahl 7 und ihre primitive Wurzel, die 3 ist. Wenn wir die Potenzen von 3 berechnen und diese modulo 7 nehmen, erhalten wir für 
+jeden Exponenten von 0 bis 6 eine universelle Lösung, die jeden möglichen Rest darstellt.
+
+**Animation:**
+
+Wie in der Animation zu sehen ist, füllt sich jedes Feld, wobei für die Exponenten 0 bis 5 jeweils ein universeller Rest im Bereich von 1 bis 6 vorhanden ist. 
+Dies bedeutet, dass sich dieser Zyklus immer wiederholt, sodass es für jeden Rest eine unendliche Anzahl möglicher Exponenten gibt. Dieses Phänomen wiederholt 
+sich für die Exponenten von 6 bis 11.
+
+**Animation:**
+
+Interessanterweise haben die Exponenten 0 und 6 den gleichen Rest von 1. Die Bedeutung dieses Phänomens wird deutlich, wenn wir uns vorstellen, dass der Rest 
+gegeben ist und der Exponent gesucht wird. Es ist äußerst schwierig, nur anhand des gegebenen Rests und der Formel den Exponenten zu berechnen. Genau hierauf basiert 
+der Diffie-Hellman-Algorithmus und ähnliche kryptografische Verfahren.
+
+Zusammenfassend können wir sagen, dass es relativ einfach ist, den Modulo zu berechnen, wenn der Exponent und die Formel gegeben sind. Auf der anderen Seite ist es 
+schwierig, den Exponenten herauszufinden, wenn nur der Rest und die Formel gegeben sind. Dies macht den Algorithmus ideal für die Verschlüsselung, da er in eine Richtung 
+leicht zu lösen ist und in die andere Richtung schwer zu entschlüsseln ist. Die Schwierigkeit nimmt noch weiter zu, wenn der Exponent eine sehr große Zahl ist, 
+da dann nicht einfach Trial and Error angewendet werden kann.
