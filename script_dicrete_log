@@ -1,0 +1,6 @@
+### Discrete Log Problem Skript
+
+Wir suchen eine numerische Operation die in eine Richtung einfach zu lösen ist und zurück zu lösen schwer ist. Ein weg ist hier die Modulare Arithmetik.  (x mod p)
+
+Die Modulo Arithmetik kann auch als Uhr Arithmetik bezeichnet werden.
+Um beispielsweise 46 mod 12 zu berechnen kann man sich ein Maßband mit 46 Einheiten vorstellen. Diese Band kann man dann um eine Uhr mit 12 Eihnheiten wickeln und da wo die Uhr endet befindet sich die Lösung
