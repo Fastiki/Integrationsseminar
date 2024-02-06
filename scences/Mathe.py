@@ -86,19 +86,174 @@ class Mathe(MovingCameraScene):
 
         self.wait(1)
 
-        bob_short = MathTex(r"g^{ab}\mod n", font_size=40).next_to(bob_alice, DOWN * 2)
+        # insert explenation
+        even = MathTex(r"=", font_size=40)
 
-        self.play(Write(bob_short))
+        # remove all objects except alice_bob and bob_alice
+        self.play(FadeOut(alice_text),
+                  FadeOut(pub),
+                  FadeOut(bob_text),
+                  FadeOut(a),
+                  FadeOut(b),
+                  FadeOut(g),
+                  FadeOut(n),
+                  FadeOut(alice),
+                  FadeOut(bob),
+                  FadeOut(line1),
+                  FadeOut(line2),
+                  FadeOut(arrow1),
+                  FadeOut(arrow2),
+                  run_time=0
+                    )
+        
+        # move alice_bob and bob_alice to top
 
-        self.wait(1)
+        self.wait(2)
+        self.play(Write(even), run_time=2)
 
-        alice_short = MathTex(r"g^{ba}\mod n", font_size=40).next_to(
-            alice_bob, DOWN * 2
+        self.play(alice_bob.animate.to_edge(UL).shift(DOWN * 1, RIGHT * 3), 
+                  bob_alice.animate.to_edge(UR).shift(DOWN * 1, LEFT * 3), 
+                  even.animate.to_edge(UP).shift(DOWN * 1.2),
+                  run_time=2)   
+    
+        self.wait(2)
+
+        question_mark = (
+            SVGMobject(
+                img_dir + "question_mark.svg",
+                color="white",
+                fill_color="white",
+            )
+            .scale(1.5)
         )
 
-        self.play(Write(alice_short))
+        self.play(Write(question_mark))   
+        self.wait(1) 
+
+        self.play(question_mark.animate.shift(LEFT*5))
 
         self.wait(1)
+
+        self.play(FadeOut(alice_bob),
+                  FadeOut(bob_alice),
+                  FadeOut(even))
+        
+        self.wait(2)
+
+        # Create text and speech bubble
+        power_rules = [
+            MathTex(r"\textbf{Power Rules:}", font_size=40),
+            MathTex(r"a^m \cdot a^n = a^{m + n}", font_size=40),
+            MathTex(r"\frac{a^m}{a^n} = a^{m - n}", font_size=40),
+            MathTex(r"(a^m)^n = a^{m \cdot n}", font_size=40)
+        ]
+
+        # Position the text on the screen
+        for i, rule in enumerate(power_rules):
+            rule.next_to(question_mark, RIGHT * 15.5 + UP * 0.2).shift(DOWN * i)
+
+        bubble = (
+            SVGMobject(
+                img_dir + "speechbubble.svg")
+                .scale(3)
+                .set_color(WHITE)
+                .set_fill(color=WHITE, opacity=1)
+        )
+
+        # Set position of the speech bubble
+        bubble.next_to(question_mark, RIGHT*7)
+
+
+        # Add animations
+        self.play(
+            Create(bubble),
+        )
+
+        self.play(*[Write(rule) for rule in power_rules])
+
+        self.wait(2)
+
+        self.play(power_rules[-1].animate.set_color(YELLOW))
+
+        self.wait(2)
+
+        # remove questionmark and bubble
+
+        self.play(FadeOut(question_mark),
+                 FadeOut(bubble),
+                 *[FadeOut(rule) for rule in power_rules[:-1]])
+
+
+        self.play(
+            power_rules[-1].animate.to_edge(UP).shift(LEFT * 1.35 + DOWN * 1),
+            run_time=2
+        )
+
+        self.wait(2)
+
+        self.play(
+                FadeIn(alice_bob),
+                FadeIn(bob_alice),
+                FadeIn(even),
+                alice_bob.animate.shift(DOWN * 2),
+                bob_alice.animate.shift(DOWN * 2),
+                even.animate.shift(DOWN * 2),
+        )
+        
+
+        self.wait(2)
+
+
+
+        bob_short = MathTex(r"g^{ab}\mod n", font_size=40).next_to(even, DOWN * 7)
+
+        arrow_left = Arrow(alice_bob.get_left()+ DOWN * 0.5, bob_short.get_left())
+        arrow_right = Arrow(bob_alice.get_right()+ DOWN * 0.5, bob_short.get_right())
+
+        self.play(Create(arrow_left),
+                  Create(arrow_right), run_time=1.5)
+    
+        self.play(Write(bob_short))
+
+        self.wait(2)
+
+        self.play(FadeOut(arrow_left),
+                  FadeOut(arrow_right),
+                  FadeOut(alice_bob),
+                  FadeOut(bob_alice),
+                  FadeOut(even),
+                  FadeOut(power_rules[-1]))
+        
+        self.wait(2)
+
+
+        alice_short = bob_short.copy()
+        # bob_short.next_to(arrow_left.get_end(), LEFT)
+
+        self.play(FadeIn(alice_text),
+                  FadeIn(pub),
+                  FadeIn(bob_text),
+                  FadeIn(a),
+                  FadeIn(b),
+                  FadeIn(g),
+                  FadeIn(n),
+                  FadeIn(alice),
+                  FadeIn(bob),
+                  FadeIn(line1),
+                  FadeIn(line2),
+                  FadeIn(arrow1),
+                  FadeIn(arrow2),
+                  run_time=2
+                    )
+        
+        self.wait(2)
+
+        self.play(bob_short.animate.next_to(arrow1.get_end(), LEFT),
+                  alice_short.animate.next_to(arrow2.get_end(), RIGHT),
+                  run_time=2)
+        
+        self.wait(2)
+
 
     def create_numbers(self, quantity, circle):
         numbers = []
