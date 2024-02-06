@@ -2,6 +2,7 @@ from manim import *
 
 img_dir = "../img/"
 
+
 class Intro(MovingCameraScene):
     def rmv_all_objs(self):
         self.play(
@@ -13,56 +14,8 @@ class Intro(MovingCameraScene):
         # Intro
         intro = Text("Diffie-Hellman Key Exchange", font_size=60)
         self.play(Write(intro))
-        self.wait(2)
-        self.play(FadeOut(intro))
-
-        self.wait(2)
-
-        self.rmv_all_objs()
-
-        # create a alice and bob
-        alice = SVGMobject(
-            img_dir + "frau.svg",
-            color="white",
-            fill_color="red",
-        )
-
-        eve = SVGMobject(
-            img_dir + "frau.svg",
-            color="white",
-            fill_color="white",
-        )
-
-        bob = SVGMobject(
-            img_dir + "mann.svg",
-            color="white",
-            fill_color="blue",
-        )
-
-        self.play(DrawBorderThenFill(alice), run_time=1.5)
-        self.play(alice.animate.shift(LEFT * 5), run_time=1.5)
-        text_alice = Text("Alice")
-        text_alice.next_to(alice, DOWN)
-        self.play(Write(text_alice))
-
-        self.wait(1)
-
-        self.play(DrawBorderThenFill(bob), run_time=1.5)
-        self.play(bob.animate.shift(RIGHT * 5), run_time=1.5)
-        text = Text("Bob")
-        text.next_to(bob, DOWN)
-        self.play(Write(text), run_time=1)
-
         self.wait(3)
-
-        # create a arrow from alice to bob and back
-        arrow1 = Arrow(alice.get_right() + UP * 0.25, bob.get_left() + UP * 0.25)
-        self.play(Create(arrow1), run_time=1.5)
-
-        self.wait(2)
-
-        arrow2 = Arrow(bob.get_left() + DOWN * 0.25, alice.get_right() + DOWN * 0.25)
-        self.play(Create(arrow2), run_time=1.5)
+        self.play(FadeOut(intro))
 
         self.wait(1)
 
@@ -135,117 +88,124 @@ class Intro(MovingCameraScene):
             color="white",
             fill_color="white",
         )
-        
-        # show alice & bob
-        self.add(alice)
-        alice.shift(LEFT * 5)
 
-        self.add(bob)
-        bob.shift(RIGHT * 5)
+        text_alice = Text("Alice")
+        text_alice.next_to(alice, DOWN)
+        alice_group = VGroup(alice, text_alice)
+        self.play(DrawBorderThenFill(alice), Write(text_alice), run_time=1.5)
+        self.wait(0.5)
+        self.play(alice_group.animate.shift(LEFT * 5), run_time=1.5)
+
         self.wait(1)
 
+        text_bob = Text("Bob")
+        text_bob.next_to(bob, DOWN)
+        bob_group = VGroup(bob, text_bob)
+        self.play(DrawBorderThenFill(bob), Write(text_bob), run_time=1.5)
+        self.wait(0.5)
+        self.play(bob_group.animate.shift(RIGHT * 5), run_time=1.5)
+
+        self.wait(3)
+
         # show the chat bubbles
-        chat_bubbles.shift(UP *2)
+        chat_bubbles.shift(UP * 2)
         self.play(DrawBorderThenFill(chat_bubbles), run_time=1.5)
         self.wait(1)
 
         # move alice & bob to chat bubbles
         self.play(
             AnimationGroup(
-                bob.animate.shift(LEFT * 3), 
-                alice.animate.shift(RIGHT * 3)), 
-            run_time=2.5)
-        self.wait(1)
-        
+                bob_group.animate.shift(LEFT * 3),
+                alice_group.animate.shift(RIGHT * 3),
+            ),
+            run_time=2.5,
+        )
+        self.wait(5)
+
         # morph alice & bob to computer_alice & computer_bob
         computer_bob.shift(RIGHT * 3)
         computer_alice.shift(LEFT * 3)
         self.play(
             Transform(alice, computer_alice),
             Transform(bob, computer_bob),
-            run_time=2
+            text_alice.animate.move_to(computer_alice.get_bottom() + DOWN * 0.5),
+            text_bob.animate.move_to(computer_bob.get_bottom() + DOWN * 0.5),
+            run_time=2,
         )
         self.wait(1)
 
+        bob_group = VGroup(bob, text_bob)
+        alice_group = VGroup(alice, text_alice)
+
         # cross over chat bubble
-        cross.shift(UP *2)
+        cross.shift(UP * 2)
         self.play(FadeIn(cross), run_time=1.5)
-        self.wait(1) 
+        self.wait(1)
 
         # show three computer
         computer.shift(UP * 2)
         self.play(
             FadeOut(cross),
             FadeOut(chat_bubbles),
-            FadeIn(computer),
-            bob.animate.shift(RIGHT * 2 + DOWN * 1),
-            alice.animate.shift(LEFT * 2 + DOWN * 1),
-            run_time=1.5
+            bob_group.animate.shift(RIGHT * 2 + DOWN * 1),
+            alice_group.animate.shift(LEFT * 2 + DOWN * 1),
+            run_time=1.5,
         )
-        self.wait(1)
+        self.wait(3)
+
+        self.play(FadeIn(computer))
+
 
         # add arrows between all computer & mail symbol
         mail.shift(DOWN * 2)
-        mail.set_height(1) 
+        mail.set_height(1)
         mail.set_width(1)
 
         arrow_alice_bob = DoubleArrow(
-                            alice.get_right(), 
-                            bob.get_left(), 
-                            buff=0, 
-                            tip_length=0.4, 
-                            color=WHITE
-                        )
-        
+            alice.get_right(), bob.get_left(), buff=0, tip_length=0.4, color=WHITE
+        )
+
         arrow_mid = Arrow(
-                            (alice.get_right() + bob.get_left()) / 2, 
-                            computer.get_bottom(), 
-                            buff=0, 
-                            tip_length=0.4, 
-                            color=WHITE
-                        )
+            (alice.get_right() + bob.get_left()) / 2,
+            computer.get_bottom(),
+            buff=0,
+            tip_length=0.4,
+            color=WHITE,
+        )
+        
+        self.wait(3)
 
         self.play(
             GrowFromCenter(arrow_alice_bob),
-            GrowArrow(arrow_mid),
             FadeIn(mail),
-            run_time=1.5
+            run_time=1.5,
         )
         self.wait(1)
+
+        self.play(GrowArrow(arrow_mid))
 
         # show keys
-        key_bob.shift(RIGHT * 5 + DOWN * 2.75)
-        key_bob.set_height(1) 
+        key_bob.shift(RIGHT * 5 + UP)
+        key_bob.set_height(1)
         key_bob.set_width(1)
 
-        key_alice.shift(LEFT * 5 + DOWN * 2.75)
-        key_alice.set_height(1) 
+        key_alice.shift(LEFT * 5 + UP)
+        key_alice.set_height(1)
         key_alice.set_width(1)
 
-        self.play(
-            FadeIn(key_bob),
-            FadeIn(key_alice),
-            run_time=1.5
-        )
-
-        self.wait(1)
-
-        self.play(
-            FadeOut(arrow_mid),
-            run_time=1
-        )
-
-        self.wait(1)
-        
-        self.play(
-            ApplyMethod(arrow_alice_bob.set_color, GREEN),
-            run_time=1
-        )
+        self.play(FadeIn(key_bob), FadeIn(key_alice), run_time=1.5)
 
         self.wait(3)
 
+        self.play(FadeOut(arrow_mid), run_time=1)
 
+        self.wait(1)
+
+        self.play(ApplyMethod(arrow_alice_bob.set_color, GREEN), run_time=1)
+
+        self.wait(3)
 
     def construct(self):
-        #self.intro()
+        self.intro()
         self.reallife()
+        self.rmv_all_objs()

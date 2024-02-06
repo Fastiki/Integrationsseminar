@@ -3,14 +3,14 @@ from manim import *
 img_dir = "../img/"
 
 
-class Math(MovingCameraScene):
+class Mathe(MovingCameraScene):
     def rmv_all_objs(self):
         self.play(
             *[FadeOut(mob) for mob in self.mobjects]
             # All mobjects in the screen are saved in self.mobjects
         )
 
-    def math(self):
+    def mathe(self):
         alice_text = Text("Alice", font_size=40)
         self.play(Write(alice_text))
         self.play(alice_text.animate.to_edge(UL).shift(DOWN * 1, RIGHT * 1), run_time=2)
@@ -206,7 +206,9 @@ class Math(MovingCameraScene):
         self.play(group.animate.move_to(RIGHT * 2 + UP *2).scale(0.7), run_time=1.5)
 
     def construct(self):
-        # self.math()
+        self.mathe()
+        self.rmv_all_objs()
         self.lets_say()
+        self.rmv_all_objs()
         self.rotation_pointer()
-        pass
+        self.rmv_all_objs()

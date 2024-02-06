@@ -1,6 +1,8 @@
 from manim import *
 
 from Intro import Intro
+from Mathe import Mathe
+from Farben import Farben
 
 img_dir = "img/"
 
@@ -15,8 +17,11 @@ class DH(MovingCameraScene):
 
     def construct(self):
         # Intro
-        Intro.intro(self)
-        self.rmv_all_objs()
+        Intro.construct(Intro())
+
+        Farben.construct(Farben())
+
+        Mathe.construct(Mathe())
 
         # create a alice and bob
         # self.alice_bob()

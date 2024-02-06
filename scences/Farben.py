@@ -244,3 +244,4 @@ class Farben(MovingCameraScene):
 
     def construct(self):
         self.farben()
+        self.rmv_all_objs()
