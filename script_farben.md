@@ -1,23 +1,20 @@
 ### Farben Skript
 
-In einem fernen Land lebten einst die beiden Freunde Alice und Bob, die ihre Geheimnisse miteinander teilen wollten, aber keinen sicheren Weg kannten, dies zu tun. Eines Tages entdeckten sie ein magisches Buch über Farben und Geheimnisse. Das Buch versprach, ihnen einen Weg zu zeigen, wie sie mit Hilfe von Farben einen gemeinsamen, sicheren Schlüssel herstellen konnten.
+Alice und Bob wollten Informationen sicher austauschen und wendeten den Diffie-Hellman-Schlüsselaustausch auf der Basis von Farben an. Die folgenden Schritte wurden durchgeführt:
 
-Die Freunde öffneten das Buch und fanden darin drei besondere Farben:
-- Rot (a): Die Farbe von Alices Geheimnis.
-- Blau (b): Die Farbe von Bobs Geheimnis.
-- Gelb (g): Eine magische öffentliche Farbe, die jeder sehen kann.
+**Auswahl privater Farben:**
+Alice wählt Rot als ihre private Farbe.
+Bob wählte Blau als seine private Farbe.
 
-Die Freunde folgten den Anweisungen im Buch:
-1. Wähle eine private Farbe:
-- Alice wählte das leidenschaftliche Rot für ihr Geheimnis.
-- Bob wählte das Blau als seine geheime Farbe.
-2. Die magische öffentliche Farbe:
-- Ein leuchtendes Gelb erschien für alle sichtbar.
-3. Individuelle Kombinationen:
-- Alice multiplizierte ihre geheime Farbe rot mit der öffentlichen Farbe und erzeugte ein warmes Orange.
-- Bob tat dasselbe mit seiner Farbe Blau und erzeugte ein beruhigendes Grün.
-4. Geheimer Schlüssel:
-- Die Freunde vertauschten ihre Farben. Alice bekam Bobs Blau und Bob bekam Alices Rot.
-- Beide kombinierten die erhaltenen Farben mit ihren eigenen privaten Farbkombinationen, Alice mit Orange und Bob mit Grün.
+**Auswahl einer öffentlichen Farbe:**
+Gelb wurde als öffentliche Farbe festgelegt, die für beide Parteien sichtbar ist.
 
-Und so, mit einem gemeinsamen magischen Grau als Ergebnis, konnten Alice und Bob nun sicher ihre Geheimnisse teilen und sich vor neugierigen Blicken schützen. Das magische Buch der Farben und Geheimnisse hatte ihnen den Weg zum Diffie-Hellman-Schlüsselaustausch gezeigt. Von diesem Tag an war ihre Kommunikation sicher und bunt wie die Farben, die ihre Freundschaft verbanden.
+**Individuelle Farbkombinationen:**
+Alice multipliziert ihre private Farbe Rot mit der öffentlichen Farbe Gelb und erhält eine Mischfarbe, z.B. Orange.
+Bob multipliziert seine private Farbe Blau mit der öffentlichen Farbe Gelb und erhält eine weitere Mischfarbe, z.B. Grün.
+
+**Tauschen und neu kombinieren:**
+Die Parteien tauschen ihre privaten Farben, so dass Alice nun Bobs private Farbe Blau besitzt und Bob Alices private Farbe Rot erhält.
+Jede Partei kombinierte die erhaltene private Farbe mit ihrer ursprünglichen privaten Farbkombination. Alice kombinierte Orange mit Blau und Bob kombinierte Grün mit Rot.
+
+Dieser Prozess führte zu einer gemeinsamen Mischfarbe, die als Ergebnis des Farbaustauschs und des Diffie-Hellman-Schlüsselaustauschs fungierte. Diese gemeinsame Mischfarbe diente als sicherer Schlüssel, um den Informationsaustausch zwischen Alice und Bob zu schützen.
