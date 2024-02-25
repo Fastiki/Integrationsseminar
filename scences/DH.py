@@ -17,11 +17,19 @@ class DH(MovingCameraScene):
 
     def construct(self):
         # Intro
-        Intro.construct(Intro())
+        intro = Intro()
+        intro.construct()
+        # Intro.construct(Intro())
 
-        Farben.construct(Farben())
+        # Farben.construct(Farben())
+        farben = Farben()
+        farben.construct()
 
-        Mathe.construct(Mathe())
+
+        mathe = Mathe()
+        mathe.construct()
+
+        # Mathe.construct(Mathe())
 
         # create a alice and bob
         # self.alice_bob()

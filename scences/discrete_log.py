@@ -21,8 +21,10 @@ class DiscreteLog(MovingCameraScene):
 
             self.wait(2)
 
+            self.rmv_all_objs()
+
     def discrete_log_simple(self):
-        def set_clock_white():
+        def set_clock_white(atime=2):
             angle_increment = TAU / 12
             start_angle = PI / 2
             sectors = VGroup()  # Group for all sectors
@@ -32,7 +34,8 @@ class DiscreteLog(MovingCameraScene):
                 sector = Sector(start_angle=angle, angle=-angle_increment, outer_radius=2, color="black", fill_opacity=1).set_stroke("white", width=3)
                 sectors.add(sector) 
 
-            self.add(sectors)
+            # self.add(sectors)
+            self.play(Create(sectors), run_time=atime)
 
         def animate_sectors(num=12, atime=0.1):
 
@@ -47,32 +50,37 @@ class DiscreteLog(MovingCameraScene):
 
 
         title = Text("46 mod 12", font_size=36).to_edge(UP)
-        self.add(title)
+        # self.add(title)
+        self.play(Write(title))
         CLOCK_COUNTER = Text("Clock Count: 0", font_size=36, color=WHITE).shift(3*DOWN, 3*LEFT)
-        self.add(CLOCK_COUNTER)
+        self.play(Write(CLOCK_COUNTER))
+        # self.add(CLOCK_COUNTER)
 
         Clock_ROTATIONS = Text("Clock Rotations: 0", font_size=36, color=WHITE).shift(3*DOWN, 3*RIGHT)
-        self.add(Clock_ROTATIONS)
+        self.play(Write(Clock_ROTATIONS))
+        # self.add(Clock_ROTATIONS)
 
-        set_clock_white()
+        set_clock_white(0.15*12)
         self.wait(10)
         animate_sectors(num=12, atime=0.15)
         Clock_ROTATIONS.become(Text(f"Clock Rotations: 1", font_size=36, color=WHITE).shift(3*DOWN, 3*RIGHT))
-        set_clock_white()
+        set_clock_white(0.2*12)
         animate_sectors(num=12, atime=0.2)
         Clock_ROTATIONS.become(Text(f"Clock Rotations: 2", font_size=36, color=WHITE).shift(3*DOWN, 3*RIGHT))
-        set_clock_white()
+        set_clock_white(0.25*12)
         animate_sectors(num=12, atime=0.25)
         Clock_ROTATIONS.become(Text(f"Clock Rotations: 3", font_size=36, color=WHITE).shift(3*DOWN, 3*RIGHT))
-        set_clock_white()
+        set_clock_white(0.45*10)
         animate_sectors(num=10, atime=0.45)
         self.wait(4)
 
         self.rmv_all_objs()
+        self.wait(1)
 
         erg = Text("46 mod 12 = 10", font_size=36)
-        self.add(erg)
-        self.wait(1)
+        self.play(Write(erg))
+        # self.add(erg)
+        self.wait(2)
 
         self.rmv_all_objs()
 
@@ -251,6 +259,8 @@ class DiscreteLog(MovingCameraScene):
         self.wait(5)
 
         self.wait(10)
+        self.rmv_all_objs()
+
 
     def construct(self):
         self.intro()

@@ -105,19 +105,19 @@ class Farben(MovingCameraScene):
         ### Animation ###
 
 
-        self.play(Write(a), Create(alice), run_time=0)
+        self.play(Write(a), DrawBorderThenFill(alice), run_time=1)
 
         self.wait(1)
 
-        self.play(Write(b), Create(bob), run_time=0)
+        self.play(Write(b), DrawBorderThenFill(bob), run_time=1)
 
         self.wait(1)
 
-        self.play(Write(n), run_time=0)
+        self.play(Write(n), run_time=1)
         
         self.wait(1)
 
-        self.play(Write(g), Create(g_square), run_time=0)
+        self.play(Write(g), DrawBorderThenFill(g_square), run_time=1)
 
         self.wait(1)
 
@@ -127,7 +127,8 @@ class Farben(MovingCameraScene):
             run_time=1
         ) 
 
-        self.play(Write(ag), Create(ag_rectangel), FadeOut(yellow_copy), FadeOut(red_copy), run_time=0)
+        self.play(Write(ag), FadeIn(ag_rectangel), run_time=0.5)
+        self.play(FadeOut(yellow_copy), FadeOut(red_copy), run_time=0.5)
 
         self.wait(1)
 
@@ -141,7 +142,8 @@ class Farben(MovingCameraScene):
             run_time=1
         ) 
 
-        self.play(Write(bg), Create(bg_rectangel), FadeOut(yellow_b_copy), FadeOut(blue_copy), run_time=0)
+        self.play(Write(bg), FadeIn(bg_rectangel), run_time=0.5)
+        self.play(FadeOut(yellow_b_copy), FadeOut(blue_copy), run_time=0.5)
 
         self.wait(1)
 
@@ -159,11 +161,11 @@ class Farben(MovingCameraScene):
 
         red_a_copy = alice.copy()
         red_a_copy.generate_target()
-        red_a_copy.target.next_to(a, DOWN * 2)
+        red_a_copy.target.move_to(abg_rectangel)
 
         orange_copy = ag_rectangel.copy()
         orange_copy.generate_target()
-        orange_copy.target.next_to(a, DOWN * 2)
+        orange_copy.target.move_to(abg_rectangel)
 
         abg = MathTex("abg", font_size=40).next_to(abg_rectangel, DOWN * 2)
 
@@ -187,22 +189,24 @@ class Farben(MovingCameraScene):
 
         ### Animation ###
         self.play(
-            blue_a_copy.animate.move_to(abg_rectangel.get_center()),
-            orange_copy.animate.move_to(abg_rectangel.get_center()),
+            red_a_copy.animate.move_to(abg_rectangel.get_center()),
+            green_copy.animate.move_to(abg_rectangel.get_center()),
             run_time=1
         ) 
 
-        self.play(Write(abg), Create(abg_rectangel), FadeOut(red_a_copy), FadeOut(orange_copy), run_time=0)
+        self.play(Write(abg), FadeIn(abg_rectangel), run_time=0.5)
+        self.play(FadeOut(red_a_copy), FadeOut(orange_copy), run_time=0.5)
 
         self.wait(2)
 
         self.play(
-            red_a_copy.animate.move_to(abg_b_rectangel.get_center()),
-            green_copy.animate.move_to(abg_b_rectangel.get_center()),
+            blue_a_copy.animate.move_to(abg_b_rectangel.get_center()),
+            orange_copy.animate.move_to(abg_b_rectangel.get_center()),
             run_time=1
         ) 
 
-        self.play(Write(abg_b), Create(abg_b_rectangel), FadeOut(blue_a_copy), FadeOut(green_copy), run_time=0)
+        self.play(Write(abg_b), FadeIn(abg_b_rectangel), run_time=0.5)
+        self.play(FadeOut(blue_a_copy), FadeOut(green_copy), run_time=0.5)
 
 
         self.wait(5)

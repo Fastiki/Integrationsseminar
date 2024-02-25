@@ -103,7 +103,7 @@ class Mathe(MovingCameraScene):
                   FadeOut(line2),
                   FadeOut(arrow1),
                   FadeOut(arrow2),
-                  run_time=0
+                  run_time=1.5
                     )
         
         # move alice_bob and bob_alice to top
@@ -165,9 +165,7 @@ class Mathe(MovingCameraScene):
 
 
         # Add animations
-        self.play(
-            Create(bubble),
-        )
+        self.play(FadeIn(bubble), run_time=1)
 
         self.play(*[Write(rule) for rule in power_rules])
 
@@ -360,10 +358,218 @@ class Mathe(MovingCameraScene):
 
         self.play(group.animate.move_to(RIGHT * 2 + UP *2).scale(0.7), run_time=1.5)
 
+    def zahlen(self):
+        alice_text = Text("Alice", font_size=40)
+        self.play(Write(alice_text))
+        self.play(alice_text.animate.to_edge(UL).shift(DOWN * 1, RIGHT * 1), run_time=2)
+        bob_text = Text("Bob", font_size=40)
+        self.play(Write(bob_text))
+        self.play(bob_text.animate.to_edge(UR).shift(DOWN * 1, LEFT * 1), run_time=2)
+
+        pub = Text("Public", font_size=40)
+        self.play(Write(pub))
+        self.play(pub.animate.to_edge(UP).shift(DOWN * 1), run_time=2)
+
+        help_line1 = Line(alice_text.get_right(), pub.get_left())
+        help_line2 = Line(pub.get_right(), bob_text.get_left())
+
+        line1 = Line(
+            help_line1.get_center() + UP * 1, help_line1.get_center() + DOWN * 6
+        )
+
+        line2 = Line(
+            help_line2.get_center() + UP * 1, help_line2.get_center() + DOWN * 6
+        )
+
+        self.play(Create(line1), run_time=2)
+        self.play(Create(line2), run_time=2)
+
+        # draw a vertical line from top to botom between alice and bob
+
+        # draw a line between bob and public from top to bottom
+        # line2 = Line(bob_text.get_top(), pub.get_bottom())
+        # self.play(Create(line2), run_time=2)
+        a = MathTex("a", font_size=40).next_to(alice_text, DOWN * 2)
+        b = MathTex("b", font_size=40).next_to(bob_text, DOWN * 2)
+        g = MathTex("g", font_size=40).next_to(pub, DOWN * 2)
+        n = MathTex("n", font_size=40).next_to(g, DOWN * 2)
+
+        alice = MathTex(r"g^a\mod n", font_size=40).next_to(a, DOWN * 2)
+        bob = MathTex(r"g^b\mod n", font_size=40).next_to(b, DOWN * 2)
+
+        # Write the formulars and numbers
+
+        self.play(Write(a))
+
+        self.wait(1)
+
+        a_num = MathTex("a=10", font_size=40).move_to(a)
+        self.play(Transform(a, a_num), run_time=1.5)
+
+        self.wait(1)
+
+
+        self.play(Write(g))
+
+        g_num = MathTex("g=3", font_size=40).move_to(g)
+        self.play(Transform(g, g_num), run_time=1.5)
+
+        self.wait(1)
+
+        self.play(Write(n))
+
+        n_num = MathTex("n=17", font_size=40).move_to(n)
+        self.play(Transform(n, n_num), run_time=1.5)
+
+        self.wait(1)
+
+        self.play(Write(b))
+
+        self.wait(1)
+
+        b_num = MathTex("b=5", font_size=40).move_to(b)
+        self.play(Transform(b, b_num), run_time=1.5)
+
+        self.wait(1)
+
+        # self.play(Write(alice))
+        # self.wait(1)
+
+        # alice_g = MathTex(r"3^{a}\mod n", font_size=40).move_to(alice)
+        # self.play(Transform(alice, alice_g), run_time=1.5)
+
+        # self.wait(1)
+
+        # alice_a = MathTex(r"3^{10}\mod n", font_size=40).move_to(alice)
+        # self.play(Transform(alice, alice_a), run_time=1.5)
+
+        # self.wait(1)
+
+        # alice_n = MathTex(r"3^{10}\mod 17", font_size=40).move_to(alice)
+        # self.play(Transform(alice, alice_n), run_time=1.5)
+
+        # self.wait(1)
+
+        # alice_result = MathTex(r"3^{10}\mod 17 = 8", font_size=40).move_to(alice)
+        # self.play(Transform(alice, alice_result), run_time=1.5)
+
+        # self.wait(1)
+
+        # self.play(Write(bob))
+
+        # bob_g = MathTex(r"3^{b}\mod n", font_size=40).move_to(bob)
+        # self.play(Transform(bob, bob_g), run_time=1.5)
+
+        # self.wait(1)
+
+        # bob_b = MathTex(r"3^{5}\mod n", font_size=40).move_to(bob)
+        # self.play(Transform(bob, bob_b), run_time=1.5)
+
+        # self.wait(1)
+
+        # bob_n = MathTex(r"3^{5}\mod 17", font_size=40).move_to(bob)
+        # self.play(Transform(bob, bob_n), run_time=1.5)
+
+        # self.wait(1)
+
+        # bob_result = MathTex(r"3^{5}\mod 17 = 5", font_size=40).move_to(bob)
+        # self.play(Transform(bob, bob_result), run_time=1.5)
+
+        # self.wait(1)
+
+        # # Zwischenwerte wurden ausgetauscht
+
+        # alice_bob = MathTex(r"(g^b)^a\mod n", font_size=40).next_to(alice, DOWN * 6)
+        # bob_alice = MathTex(r"{(g^a)}^{b}\mod n", font_size=40).next_to(bob, DOWN * 6)
+
+
+        # # ----------------------------------------
+        # # self.wait(1)
+        # # Five
+        # eight = MathTex("8", font_size=60, color="red").next_to(alice)
+        # self.play(Write(eight), run_time=1.5)
+
+        # eight.generate_target()
+        # eight.target.move_to(bob_alice.get_top() + UP * 0.5)
+        # self.play(MoveToTarget(eight), run_time=1.5)
+        # public_eight = MathTex("8", font_size=40).next_to(n, DOWN * 2)
+        # self.play(Write(public_eight), run_time=1.5)
+
+        # self.wait(1)
+        # self.play(Write(bob_alice))
+        # self.wait(1)
+        # bob_alice_ga = MathTex("8^{5}\mod 17", font_size=40).move_to(bob_alice)
+        # self.play(Transform(bob_alice, bob_alice_ga), run_time=1.5)
+
+
+        # self.wait(1)
+
+        # # Six
+        # five = MathTex("5", font_size=60, color="blue").next_to(bob.get_left() + LEFT * 0.5)
+        # self.play(Write(five), run_time=1.5)
+
+        # five.generate_target()
+        # five.target.move_to(alice_bob.get_top() + UP * 0.5)
+        # self.play(MoveToTarget(five), run_time=1.5)
+        # public_five = MathTex("5", font_size=40).next_to(public_eight, DOWN * 2)
+        # self.play(Write(public_five), run_time=1.5)
+        
+        # self.wait(1)
+        # self.play(Write(alice_bob))
+        # self.wait(1)
+        # alice_bob_gb = MathTex("5^{10}\mod 17", font_size=40).move_to(alice_bob)
+        # self.play(Transform(alice_bob, alice_bob_gb), run_time=1.5)
+
+        # self.wait(1)
+        # # ----------------------------------------
+        # # Results
+        # alice_bob_result = MathTex(r"5^{10}\mod 17 = 9", font_size=40).move_to(alice_bob)
+        # self.play(Transform(alice_bob, alice_bob_result), run_time=1.5)
+
+        # self.wait(1)
+
+        # bob_alice_result = MathTex(r"8^{5}\mod 17 = 9", font_size=40).move_to(bob_alice)
+        # self.play(Transform(bob_alice, bob_alice_result), run_time=1.5)
+        # # ----------------------------------------
+
+        # # ----------------------------------------
+        # # Short formulars
+        # alice_short = MathTex(r"g^{ba}\mod n", font_size=40).next_to(
+        #     alice_bob, DOWN * 2
+        # )
+        # self.play(Write(alice_short))
+
+        # self.wait(1)
+
+        # # ----------------------------------------
+
+        # alice_short_with_numbers = MathTex(r"3^{10\cdot5}\mod 17 = 9", font_size=40).move_to(alice_short)
+        # self.play(Transform(alice_short, alice_short_with_numbers), run_time=1.5)
+
+        # bob_short = MathTex(r"g^{ab}\mod n", font_size=40).next_to(bob_alice, DOWN * 2)
+        # self.play(Write(bob_short))
+
+        # self.wait(1)
+
+        # bob_short_with_numbers = MathTex(r"3^{5\cdot10}\mod 17 = 9", font_size=40).move_to(bob_short)
+        # self.play(Transform(bob_short, bob_short_with_numbers), run_time=1.5)
+
+        # self.wait(1)
+
+        # # ----------------------------------------
+        # # Show public cant be used to find the secret
+        # public_cant = MathTex(r"g^{8\cdot5}\mod n", font_size=40).next_to(public_five, DOWN * 2)
+        # self.play(Write(public_cant))
+        # public_cant_numbers = MathTex(r"3^{8\cdot5}\mod 17", font_size=40).move_to(public_cant)
+        # self.play(Transform(public_cant, public_cant_numbers), run_time=1.5)
+
+        self.wait(1)
+
     def construct(self):
-        self.mathe()
+        # self.mathe()
+        # self.rmv_all_objs()
+        self.zahlen()
         self.rmv_all_objs()
-        self.lets_say()
-        self.rmv_all_objs()
-        self.rotation_pointer()
-        self.rmv_all_objs()
+        # self.lets_say()
+        # self.rotation_pointer()
+        # self.rmv_all_objs()

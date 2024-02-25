@@ -21,6 +21,31 @@ class Intro(MovingCameraScene):
 
         self.rmv_all_objs()
 
+        text = Text("1976", font_size=40).to_edge(UP, 0.5)
+        diffie = Text("Whitfield Diffie", font_size=40).to_edge(DOWN + LEFT)
+        hellman = Text("Martin Hellman", font_size=40).to_edge(DOWN + RIGHT)
+        ax1x2 = Text("ax1x2", font_size=40)
+        martin = ImageMobject(img_dir + "Martin-Hellman.jpg").to_edge(RIGHT, 2).scale(2)
+        whitfield = ImageMobject(img_dir + "Whitfield_Diffie.png").to_edge(LEFT, 2).scale(2)
+        self.play(Write(text), run_time=1)
+
+        self.wait(1)
+
+        self.play(Write(diffie), FadeIn(whitfield), run_time=1)
+
+        self.wait(1)
+
+        self.play(Write(hellman), FadeIn(martin), run_time=1)
+
+        self.wait(1)
+
+        self.play(Write(ax1x2), run_time=1)
+
+        self.wait(1)
+
+        self.rmv_all_objs()
+
+
     def reallife(self):
         # create a alice and bob
         alice = SVGMobject(
@@ -162,7 +187,7 @@ class Intro(MovingCameraScene):
         mail.set_width(1)
 
         arrow_alice_bob = DoubleArrow(
-            alice.get_right(), bob.get_left(), buff=0, tip_length=0.4, color=WHITE
+            alice.get_right(), bob.get_left(), buff=0.1, tip_length=0.4, color=WHITE
         )
 
         arrow_mid = Arrow(
